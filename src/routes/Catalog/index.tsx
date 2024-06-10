@@ -2,6 +2,7 @@ import "./styles.css";
 import HeaderClient from "../../components/HeaderClient";
 import SearchBar from "../../components/SearchBar";
 import CatalogCard from "../../components/CatalogCard";
+import ButtonNextPage from "../../components/ButtonNextPage";
 
 export default function Catalog() {
   return (
@@ -25,7 +26,7 @@ export default function Catalog() {
             <CatalogCard />
           </div>
 
-          <div className="dsc-btn-next-page">Carregar mais</div>
+          <ButtonNextPage />
         </section>
       </main>
     </>
