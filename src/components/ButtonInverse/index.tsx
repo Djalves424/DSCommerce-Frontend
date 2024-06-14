@@ -1,7 +1,7 @@
 import './styles.css';
 
 type Props = {
-  name: string;
+  text: string;
 }
 
 export default function ButtonInverse({text}: Props) {
