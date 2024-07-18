@@ -31,7 +31,7 @@ export default function App() {
             <Route path="Cart" element={<Cart />} />
             <Route path="Login" element={<Login />} />
           </Route>
-          <Route path="/admin/" element={<PrivateRoute><Admin /></PrivateRoute>}>
+          <Route path="/admin/" element={<PrivateRoute roles={['ROLE_ADMIN']}><Admin /></PrivateRoute>}>
             <Route index element={<AdminHome />} />
           </Route>
           <Route path="*" element={<Navigate to="/" />} />
