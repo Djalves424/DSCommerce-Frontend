@@ -49,9 +49,8 @@ export default function App() {
             <Route path="Login" element={<Login />} />
             <Route
               path="Confirmation/:orderId"
-              element={<Confirmation />}
-            />
-          </Route>
+              element={<PrivateRoute><Confirmation  /></PrivateRoute>} />
+            </Route>
           <Route path="/admin/" element={<PrivateRoute roles={['ROLE_ADMIN']}><Admin /></PrivateRoute>}>
             <Route index element={<AdminHome />} />
           </Route>
