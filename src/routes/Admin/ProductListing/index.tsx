@@ -5,6 +5,7 @@ import deleteIcon from '../../../assets/delete.svg';
 import { useEffect, useState } from 'react';
 import { ProductDTO } from '../../../models/product';
 import SearchBar from '../../../components/SearchBar';
+import ButtonNextPage from '../../../components/ButtonNextPage';
 
 type QueryParams = {
     page: number;
@@ -35,6 +36,11 @@ export default function ProductListing() {
         setProducts([]);
         setQueryParam({ ...queryParams, page: 0, name: searchText });
       }
+    
+      function handleNextPageClick() {
+        setQueryParam({ ...queryParams, page: queryParams.page + 1 });
+      }
+    
  
     return (
         <main>
@@ -74,7 +80,14 @@ export default function ProductListing() {
                 }
             </tbody>
           </table>
-            <div className="dsc-btn-next-page">Carregar mais</div>
+         {
+            !isLastPage && (
+                <div
+                    onClick={handleNextPageClick}>
+                    <ButtonNextPage />
+                </div>
+                 )     
+         }
         </section>
       </main>
     );
