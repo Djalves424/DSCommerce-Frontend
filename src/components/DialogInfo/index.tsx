@@ -5,7 +5,7 @@ type Props = {
   onDialogClose: Function;
 };
 
-export default function DialoInfo({ message, onDialogClose }: Props) {
+export default function DialogInfo({ message, onDialogClose }: Props) {
   return (
     <div className="dsc-dialog-background" onClick={() => onDialogClose()}>
       <div className="dsc-dialog-box" onClick={(event) => event.stopPropagation()}>
