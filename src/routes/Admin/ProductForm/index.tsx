@@ -20,11 +20,15 @@ export default function ProductForm() {
     },
 
     price: {
-      value: "",
+      value: 200,
       id: "price",
       name: "price",
       type: "number",
       placeholder: "Preço",
+      validation: function (value: any) {
+        return Number(value) > 0;
+      },
+      message: "Favor informar um valor positivo",
     },
 
     imgUrl: {
@@ -37,10 +41,13 @@ export default function ProductForm() {
   });
 
   useEffect(() => {
+    const obj = forms.validate(formData, "price");
+    console.log(obj);
+
     if (isEditing) {
       productService.findById(Number(params.productId)).then((response) => {
-        const newFormData = forms.updateAll(formData, response.data)
-        setFormData(newFormData);        
+        const newFormData = forms.updateAll(formData, response.data);
+        setFormData(newFormData);
       });
     }
   }, []);
