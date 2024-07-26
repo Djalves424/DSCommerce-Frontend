@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import FormInput from "../../../components/FormInput";
 import * as forms from "../../../utils/forms";
 import * as productService from "../../../services/product-service";
+import FormTextArea from "../../../components/FormITextArea";
 
 export default function ProductForm() {
   const params = useParams();
@@ -17,10 +18,10 @@ export default function ProductForm() {
       name: "name",
       type: "text",
       placeholder: "Name",
-      validation: function(value: string) {
+      validation: function (value: string) {
         return /^.{3,80}$/.test(value);
       },
-      message: "Favor informar um nome de 3 a 80 caracteres"
+      message: "Favor informar um nome de 3 a 80 caracteres",
     },
 
     price: {
@@ -42,10 +43,21 @@ export default function ProductForm() {
       type: "text",
       placeholder: "Imagem",
     },
+
+    description: {
+      value: "",
+      id: "description",
+      name: "description",
+      type: "text",
+      placeholder: "Descrição",
+      validation: function (value: string) {
+        return /^.{10,}$/.test(value);
+      },
+      message: "A descrição deve ter pelo menos 10 caracteres",
+    },
   });
 
   useEffect(() => {
-
     if (isEditing) {
       productService.findById(Number(params.productId)).then((response) => {
         const newFormData = forms.updateAll(formData, response.data);
@@ -55,7 +67,9 @@ export default function ProductForm() {
   }, []);
 
   function handleInputChange(event: any) {
-    setFormData(forms.updateAndValidate(formData, event.target.name, event.target.value));
+    setFormData(
+      forms.updateAndValidate(formData, event.target.name, event.target.value)
+    );
   }
 
   function handleTurnDirty(name: string) {
@@ -94,6 +108,15 @@ export default function ProductForm() {
                   onTurnDirty={handleTurnDirty}
                   onChange={handleInputChange}
                 />
+              </div>
+              <div>
+                <FormTextArea
+                  {...formData.description}
+                  className="dsc-form-control dsc-textarea"
+                  onTurnDirty={handleTurnDirty}
+                  onChange={handleInputChange}
+                />
+                <div className="dsc-form-error">{formData.description.message}</div>
               </div>
             </div>
 
