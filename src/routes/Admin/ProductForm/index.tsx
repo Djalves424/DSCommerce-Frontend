@@ -101,7 +101,14 @@ export default function ProductForm() {
 
   function handleSubmit(event: any) {
     event.preventDefault();
-    console.log(forms.toValues(formData));    
+
+    const formDataValidated = forms.dirtyAndValidateAll(formData);
+    if (forms.hasAnyInvalid(formDataValidated)) {
+      setFormData(formDataValidated);
+      return;
+    }
+
+    //console.log(forms.toValues(formData));
   }
 
   return (
@@ -144,7 +151,11 @@ export default function ProductForm() {
                   styles={selectStyles}
                   options={categories}
                   onChange={(obj: any) => {
-                    const newFormData = forms.updateAndValidate(formData, "categories", obj);                   
+                    const newFormData = forms.updateAndValidate(
+                      formData,
+                      "categories",
+                      obj
+                    );
                     setFormData(newFormData);
                   }}
                   onTurnDirty={handleTurnDirty}
